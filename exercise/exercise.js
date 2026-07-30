@@ -5,6 +5,7 @@ import { ltc } from "../logToConsole.js";
 const section1OutputDiv = document.getElementById("section-1-output");
 const section2OutputDiv = document.getElementById("section-2-output");
 const section3OutputDiv = document.getElementById("section-3-output");
+const exercise1btn = document.getElementById("exercise-1-btn");
 
 /*
 	Exercise 1: Making a Simple GET Request with Fetch
@@ -31,8 +32,8 @@ async function fetchJsonData() {
     console.error('Error encountered:', error);
   }
 }
+exercise-1-btn.addEventListener("click", fetchJsonData);
 
-section1OutputDiv.addEventListener("click", fetchJsonData);
 /*
 	Exercise 2: Handling Text Responses
 
