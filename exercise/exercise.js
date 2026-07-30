@@ -1,7 +1,7 @@
 /*
 	Values to use for multiple exercises
 */
-
+import { ltc } from "../logToConsole.js";
 const section1OutputDiv = document.getElementById("section-1-output");
 const section2OutputDiv = document.getElementById("section-2-output");
 const section3OutputDiv = document.getElementById("section-3-output");
@@ -19,11 +19,18 @@ const section3OutputDiv = document.getElementById("section-3-output");
 */
 
 // Exercise 1
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+async function fetchJsonData() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    ltc(data);
+  } catch (error) {
+    console.error('Error encountered:', error);
+  }
+}
 
 /*
 	Exercise 2: Handling Text Responses
