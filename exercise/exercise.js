@@ -33,7 +33,7 @@ async function fetchJsonData() {
   }
 }
 exercise1btn.addEventListener("click", fetchJsonData);
-
+section1OutputDiv.textContent = JSON.stringify(data);
 /*
 	Exercise 2: Handling Text Responses
 
