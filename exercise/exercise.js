@@ -32,7 +32,7 @@ async function fetchJsonData() {
     console.error('Error encountered:', error);
   }
 }
-exercise-1-btn.addEventListener("click", fetchJsonData);
+exercise1btn.addEventListener("click", fetchJsonData);
 
 /*
 	Exercise 2: Handling Text Responses
