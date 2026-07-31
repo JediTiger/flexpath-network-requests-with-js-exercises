@@ -21,7 +21,9 @@ const exercise1btn = document.getElementById("exercise-1-btn");
 
 // Exercise 1
 async function fetchJsonData() {
+  ltc("Starting async function");
   try {
+	ltc("Starting try block");
     const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -34,6 +36,7 @@ async function fetchJsonData() {
 }
 exercise1btn.addEventListener("click", fetchJsonData);
 section1OutputDiv.textContent = JSON.stringify(data);
+
 /*
 	Exercise 2: Handling Text Responses
 
