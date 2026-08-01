@@ -6,6 +6,8 @@ const section1OutputDiv = document.getElementById("section-1-output");
 const section2OutputDiv = document.getElementById("section-2-output");
 const section3OutputDiv = document.getElementById("section-3-output");
 const exercise1btn = document.getElementById("exercise-1-btn");
+const exercise2btn = document.getElementById("exercise-2-btn");
+const exercise3btn = document.getElementById("exercise-3-btn");
 let placeholder;
 /*
 	Exercise 1: Making a Simple GET Request with Fetch
@@ -21,16 +23,13 @@ let placeholder;
 
 // Exercise 1
 async function fetchJsonData() {
-  ltc("Starting async function");
   try {
-	ltc("Starting try block");
     const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    ltc(data);
-	section1OutputDiv.textContent = JSON.stringify(data);
+	section1OutputDiv.textContent = data;
   } catch (error) {
     console.error('Error encountered:', error);
   }
@@ -53,12 +52,19 @@ exercise1btn.addEventListener("click", fetchJsonData);
 	
 */
 
-// Exercise 2
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+async function fetchJsonDataE2() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts/5');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+	section1OutputDiv.textContent = JSON.stringify(data);
+  } catch (error) {
+    console.error('Error encountered:', error);
+  }
+}
+exercise2btn.addEventListener("click", fetchJsonDataE2);
 
 /*
 Exercise 3: Making a POST Request with Fetch
@@ -73,11 +79,31 @@ Display the response of this POST call in the #section-1-output div.
 */
 
 // Exercise 3
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+async function postJsonDataE3() {
+  const url = 'https://jsonplaceholder.typicode.com/posts';
+  
+  const payload = {
+    title: 'Some info',
+    body: 'Some contents',
+  };
+  const headerType = {
+      'Content-Type': 'application/json'
+    }
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST', headers: headerType, body: JSON.stringify(payload)
+	});
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+	section1OutputDiv.textContent = JSON.stringify(data);
+  } catch (error) {
+    console.error('Error encountered:', error);
+  }
+}
+exercise3btn.addEventListener("click", postJsonDataE3);
 
 /*
 Exercise 4: Understanding HTTP Status Codes
