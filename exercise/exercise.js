@@ -1,12 +1,15 @@
 /*
 	Values to use for multiple exercises
 */
-import { ltc } from "../logToConsole.js";
+//import { ltc } from "..logToConsole.js";
 const section1OutputDiv = document.getElementById("section-1-output");
 const section2OutputDiv = document.getElementById("section-2-output");
 const section3OutputDiv = document.getElementById("section-3-output");
 const exercise1btn = document.getElementById("exercise-1-btn");
 
+function ltc(x) {
+	console.log(x);
+}
 /*
 	Exercise 1: Making a Simple GET Request with Fetch
 
@@ -30,12 +33,12 @@ async function fetchJsonData() {
     }
     const data = await response.json();
     ltc(data);
+	section1OutputDiv.textContent = JSON.stringify(data);
   } catch (error) {
     console.error('Error encountered:', error);
   }
 }
 exercise1btn.addEventListener("click", fetchJsonData);
-section1OutputDiv.textContent = JSON.stringify(data);
 
 /*
 	Exercise 2: Handling Text Responses
