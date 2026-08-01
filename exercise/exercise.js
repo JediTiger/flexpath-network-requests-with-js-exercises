@@ -1,15 +1,12 @@
 /*
 	Values to use for multiple exercises
 */
-//import { ltc } from "..logToConsole.js";
+import { ltc } from '../logToConsole.js';
 const section1OutputDiv = document.getElementById("section-1-output");
 const section2OutputDiv = document.getElementById("section-2-output");
 const section3OutputDiv = document.getElementById("section-3-output");
 const exercise1btn = document.getElementById("exercise-1-btn");
-
-function ltc(x) {
-	console.log(x);
-}
+let placeholder;
 /*
 	Exercise 1: Making a Simple GET Request with Fetch
 
@@ -197,11 +194,7 @@ Have the request fire when the 'exercise-8-btn' btn is clicked.
 // Exercise 8 - Use the invalidUrl below
 const invalidUrl = "https://invalid-url";
 
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+
 
 /*
 Exercise 9: Aborting a Fetch Request
@@ -233,11 +226,6 @@ function sleepUsageExample() {
   });
 }
 
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
 
 /*
 Exercise 10: Understanding CORS Errors
