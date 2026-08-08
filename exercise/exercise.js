@@ -5,9 +5,6 @@ import { ltc } from '../logToConsole.js';
 const section1OutputDiv = document.getElementById("section-1-output");
 const section2OutputDiv = document.getElementById("section-2-output");
 const section3OutputDiv = document.getElementById("section-3-output");
-const exercise1btn = document.getElementById("exercise-1-btn");
-const exercise2btn = document.getElementById("exercise-2-btn");
-const exercise3btn = document.getElementById("exercise-3-btn");
 let placeholder;
 /*
 	Exercise 1: Making a Simple GET Request with Fetch
@@ -22,6 +19,7 @@ let placeholder;
 */
 
 // Exercise 1
+const exercise1btn = document.getElementById("exercise-1-btn");
 async function fetchJsonData() {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
@@ -52,6 +50,7 @@ exercise1btn.addEventListener("click", fetchJsonData);
 	
 */
 
+const exercise2btn = document.getElementById("exercise-2-btn");
 async function fetchJsonDataE2() {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts/5');
@@ -79,6 +78,7 @@ Display the response of this POST call in the #section-1-output div.
 */
 
 // Exercise 3
+const exercise3btn = document.getElementById("exercise-3-btn");
 async function postJsonDataE3() {
   const url = 'https://jsonplaceholder.typicode.com/posts';
   
@@ -123,12 +123,26 @@ Display the response in the #section-1-output div.
 */
 
 // Exercise 4
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
-
+const exercise4btn = document.getElementById("exercise-4-btn");
+let statusOfGet;
+async function getStatusCodesE4() {
+try {
+	const response = await fetch('https://jsonplaceholder.typicode.com/posts/2');
+    if (!response.ok) {
+	  statusOfGet = response.status;
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+	const data = await response.status;
+	if (data === 200) {
+		section1OutputDiv.textContent = `Get status code: ${data}`;
+	}
+} catch (error) {
+		ltc("Command failed to fecth resource");
+		console.error('Error encountered:', error);
+		section1OutputDiv.textContent = `Get status code: ${statusOfGet}`;
+	}
+}
+exercise4btn.addEventListener("click", getStatusCodesE4);
 /*
 Exercise 5: Setting Custom HTTP Headers
 
