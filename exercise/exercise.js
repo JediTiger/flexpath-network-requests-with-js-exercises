@@ -125,21 +125,27 @@ Display the response in the #section-1-output div.
 // Exercise 4
 const exercise4btn = document.getElementById("exercise-4-btn");
 let statusOfGet;
+function changeSection1Output(statusOutput) {
+	section1OutputDiv.textContent = `Status code is: ${statusOutput}`;
+}
+
 async function getStatusCodesE4() {
 try {
 	const response = await fetch('https://jsonplaceholder.typicode.com/posts/2');
+	statusOfGet = response.status;
     if (!response.ok) {
-	  statusOfGet = response.status;
+		ltc("Executing response not ok block")
+	  changeSection1Output(statusOfGet);
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 	const data = await response.status;
 	if (data === 200) {
-		section1OutputDiv.textContent = `Get status code: ${data}`;
+		changeSection1Output(data);
 	}
 } catch (error) {
 		ltc("Command failed to fecth resource");
 		console.error('Error encountered:', error);
-		section1OutputDiv.textContent = `Get status code: ${statusOfGet}`;
+		changeSection1Output(statusOfGet);
 	}
 }
 exercise4btn.addEventListener("click", getStatusCodesE4);
