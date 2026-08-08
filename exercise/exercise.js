@@ -150,6 +150,7 @@ try {
 	}
 }
 exercise4btn.addEventListener("click", getStatusCodesE4);
+
 /*
 Exercise 5: Setting Custom HTTP Headers
 
@@ -214,12 +215,29 @@ Display the response data in the div with ID 'section-1-output'
 
 */
 
-// Exercise 6
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+const exercise6btn = document.getElementById("exercise-6-btn");
+
+async function getStatusCodesE4() {
+const divPrefixE6 = "Status code is:";
+try {
+	const response = await fetch('https://jsonplaceholder.typicode.com/posts/2');
+	statusOfGet = response.status;
+    if (!response.ok) {
+		ltc("Executing response not ok block")
+	  changeSection1Output(divPrefixE4, statusOfGet);
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+	const data = await response.status;
+	if (data === 200) {
+		changeSection1Output(divPrefixE4, data);
+	}
+} catch (error) {
+		ltc("Command failed to fecth resource");
+		console.error('Error encountered:', error);
+		changeSection1Output(divPrefixE4, statusOfGet);
+	}
+}
+exercise6btn.addEventListener("click", getStatusCodesE6);
 
 /*
 Exercise 7: 
