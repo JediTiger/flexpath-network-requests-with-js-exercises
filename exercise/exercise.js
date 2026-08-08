@@ -125,27 +125,28 @@ Display the response in the #section-1-output div.
 // Exercise 4
 const exercise4btn = document.getElementById("exercise-4-btn");
 let statusOfGet;
-function changeSection1Output(statusOutput) {
-	section1OutputDiv.textContent = `Status code is: ${statusOutput}`;
+function changeSection1Output(prefix, statusOutput) {
+	section1OutputDiv.textContent = `${prefix} ${statusOutput}`;
 }
 
 async function getStatusCodesE4() {
+const divPrefixE4 = "Status code is:";
 try {
 	const response = await fetch('https://jsonplaceholder.typicode.com/posts/2');
 	statusOfGet = response.status;
     if (!response.ok) {
 		ltc("Executing response not ok block")
-	  changeSection1Output(statusOfGet);
+	  changeSection1Output(divPrefixE4, statusOfGet);
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 	const data = await response.status;
 	if (data === 200) {
-		changeSection1Output(data);
+		changeSection1Output(divPrefixE4, data);
 	}
 } catch (error) {
 		ltc("Command failed to fecth resource");
 		console.error('Error encountered:', error);
-		changeSection1Output(statusOfGet);
+		changeSection1Output(divPrefixE4, statusOfGet);
 	}
 }
 exercise4btn.addEventListener("click", getStatusCodesE4);
@@ -166,11 +167,35 @@ Display the response in the #section-1-output div.
 
 // Exercise 5
 
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+const exercise5btn = document.getElementById("exercise-5-btn");
+async function postRequestE5() {
+  const url = 'https://jsonplaceholder.typicode.com/posts';
+  
+  const payload = {
+    title: 'Some title',
+    body: 'Some body',
+  };
+  const headerType = {
+      'Content-Type': 'application/json',
+	  'X-Custom-Header': 'MyHeaderValue'
+    }
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST', 
+	  headers: headerType,
+	  body: JSON.stringify(payload)
+	});
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+	changeSection1Output("Response is:", JSON.stringify(data));
+  } catch (error) {
+    console.error('Error encountered:', error);
+  }
+}
+exercise5btn.addEventListener("click", postRequestE5);
 
 /*
 Exercise 6: Content Negotiation with Accept Header
