@@ -220,30 +220,20 @@ Display the response data in the div with ID 'section-1-output'
 */
 
 const exercise6btn = document.getElementById("exercise-6-btn");
-
-async function getResponseE6() {
-const divPrefixE6 = "Response is:";
-try {
-  const url = 'https://jsonplaceholder.typicode.com/posts/1';
-  
-	const headers = {
-		'Accept': 'application/json',
-		}
-	const response = fetch(url);
-	// const response = await fetch(url, {
-	// 	method: 'GET', 
-	// 	headers: headers,
-	// });
+async function fetchAcceptE6() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response}`);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-	changeSection1Output(divPrefixE6, response);
-} catch (error) {
-		console.error('Error encountered:', error);
-	}
-
-exercise6btn.addEventListener("click", getResponseE6);
+    const data = await response.headers;
+	changeSection1Output('Response headers are:', data);
+  } catch (error) {
+    console.error('Error encountered:', error);
+  }
 }
+exercise6btn.addEventListener("click", fetchAcceptE6);
+
 /*
 Exercise 7: 
 
