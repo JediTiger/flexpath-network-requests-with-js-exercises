@@ -341,8 +341,27 @@ function sleep(ms) {
 function sleepUsageExample() {
   sleep(5000).then(() => {
     fetch("https://jsonplaceholder.typicode.com/posts/1");
+	ltc("Fetch complete");
   });
 }
+
+const exercise9btn = document.getElementById("exercise-9-fetch-btn");
+exercise9btn.addEventListener("click", sleepUsageExample);
+
+async function fetchAbortE9() {
+  try {
+    const response = await sleepUsageExample;
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+	changeSection1Output('Response text is:', data);
+  } catch (error) {
+	changeSection1Output('Error occured:', error);
+    console.error('Error encountered:', error);
+  }
+}
+//exercise9btn.addEventListener("click", fetchAbortE9);
 
 /*
 Exercise 10: Understanding CORS Errors
