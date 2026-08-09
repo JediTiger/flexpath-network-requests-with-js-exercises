@@ -222,12 +222,18 @@ Display the response data in the div with ID 'section-1-output'
 const exercise6btn = document.getElementById("exercise-6-btn");
 async function fetchAcceptE6() {
   try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+	const url = 'https://jsonplaceholder.typicode.com/posts/1';
+	const headers = { 'Accept': 'application/json' };
+	const reqMethod = 'GET';
+    const response = await fetch(url, { reqMethod, headers });
+	let headerArray = [...response.headers];
+	console.log(headerArray); 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const data = await response.headers;
-	changeSection1Output('Response headers are:', data);
+    const data = await response.json();
+	let totalData = `Data: ${data} & Headers: ${headerArray}`;
+	changeSection1Output('Response headers are:', totalData);
   } catch (error) {
     console.error('Error encountered:', error);
   }
@@ -257,11 +263,23 @@ Display the result in the #section-1-output div.
 */
 
 // Exercise 7
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+const exercise7btn = document.getElementById("exercise-7-btn");
+async function fetchTextE7() {
+  try {
+	const url = 'https://jsonplaceholder.typicode.com/posts/5';
+	const reqMethod = 'GET';
+	const headers = { 'Accept': 'text/plain' };
+    const response = await fetch(url, { reqMethod, headers });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.text();
+	changeSection1Output('Response text is:', data);
+  } catch (error) {
+    console.error('Error encountered:', error);
+  }
+}
+exercise7btn.addEventListener("click", fetchTextE7);
 
 /*
 Exercise 8: Handling Network Errors
