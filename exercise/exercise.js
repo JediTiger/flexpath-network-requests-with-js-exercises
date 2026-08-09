@@ -126,6 +126,10 @@ Display the response in the #section-1-output div.
 const exercise4btn = document.getElementById("exercise-4-btn");
 let statusOfGet;
 function changeSection1Output(prefix, statusOutput) {
+	ltc(typeof statusOutput);
+	if (typeof statusOutput === 'object') {
+		statusOutput = JSON.stringify(statusOutput);
+	}
 	section1OutputDiv.textContent = `${prefix} ${statusOutput}`;
 }
 
@@ -217,28 +221,29 @@ Display the response data in the div with ID 'section-1-output'
 
 const exercise6btn = document.getElementById("exercise-6-btn");
 
-async function getStatusCodesE4() {
-const divPrefixE6 = "Status code is:";
+async function getResponseE6() {
+const divPrefixE6 = "Response is:";
 try {
-	const response = await fetch('https://jsonplaceholder.typicode.com/posts/2');
-	statusOfGet = response.status;
+  const url = 'https://jsonplaceholder.typicode.com/posts/1';
+  
+	const headers = {
+		'Accept': 'application/json',
+		}
+	const response = fetch(url);
+	// const response = await fetch(url, {
+	// 	method: 'GET', 
+	// 	headers: headers,
+	// });
     if (!response.ok) {
-		ltc("Executing response not ok block")
-	  changeSection1Output(divPrefixE4, statusOfGet);
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response}`);
     }
-	const data = await response.status;
-	if (data === 200) {
-		changeSection1Output(divPrefixE4, data);
-	}
+	changeSection1Output(divPrefixE6, response);
 } catch (error) {
-		ltc("Command failed to fecth resource");
 		console.error('Error encountered:', error);
-		changeSection1Output(divPrefixE4, statusOfGet);
 	}
-}
-exercise6btn.addEventListener("click", getStatusCodesE6);
 
+exercise6btn.addEventListener("click", getResponseE6);
+}
 /*
 Exercise 7: 
 
