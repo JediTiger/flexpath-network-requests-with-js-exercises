@@ -295,8 +295,24 @@ Have the request fire when the 'exercise-8-btn' btn is clicked.
 
 // Exercise 8 - Use the invalidUrl below
 const invalidUrl = "https://invalid-url";
-
-
+const exercise8btn = document.getElementById("exercise-8-btn");
+let thrownError;
+async function fetchBadUrlE8() {
+  try {
+    const response = await fetch(invalidUrl);
+	ltc(response);
+	thrownError = response;
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.text();
+	changeSection1Output('Response text is:', data);
+  } catch (error) {
+	changeSection1Output('Error occured:', 'Invalid URL; Host URL could not be found.');
+    console.error('Error encountered:', error);
+  }
+}
+exercise8btn.addEventListener("click", fetchBadUrlE8);
 
 /*
 Exercise 9: Aborting a Fetch Request
@@ -327,7 +343,6 @@ function sleepUsageExample() {
     fetch("https://jsonplaceholder.typicode.com/posts/1");
   });
 }
-
 
 /*
 Exercise 10: Understanding CORS Errors
