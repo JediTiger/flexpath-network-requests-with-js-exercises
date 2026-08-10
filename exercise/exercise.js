@@ -125,7 +125,7 @@ Display the response in the #section-1-output div.
 // Exercise 4
 const exercise4btn = document.getElementById("exercise-4-btn");
 let statusOfGet;
-function changeSection1Output(prefix, statusOutput) {
+function changeSection1Output(prefix, statusOutput = '') {
 	ltc(typeof statusOutput);
 	if (typeof statusOutput === 'object') {
 		statusOutput = JSON.stringify(statusOutput);
@@ -334,6 +334,9 @@ the return of your fetch call in time for you to abort it
 
 // Exercise 9
 
+const exercise9btn = document.getElementById("exercise-9-fetch-btn");
+exercise9btn.addEventListener("click", sleepUsageExample);
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -341,12 +344,11 @@ function sleep(ms) {
 function sleepUsageExample() {
   sleep(5000).then(() => {
     fetch("https://jsonplaceholder.typicode.com/posts/1");
-	ltc("Fetch complete");
+  	changeSection1Output('Fetch complete');
+	  ltc("Fetch complete");
   });
 }
 
-const exercise9btn = document.getElementById("exercise-9-fetch-btn");
-exercise9btn.addEventListener("click", sleepUsageExample);
 
 async function fetchAbortE9() {
   try {
