@@ -351,7 +351,7 @@ const signal = controller.signal;
 
 // LC prodivded but modified fetch function
 function sleepUsageExample() {
-  sleep(50).then(() => {
+  sleep(5000).then(() => {
     ltc("fetch in sleep function started");
     fetch("https://jsonplaceholder.typicode.com/posts/1", { signal })
       .then(response => response.json())
@@ -365,16 +365,17 @@ function sleepUsageExample() {
 // Was testing this to call the other functions; now it is the abort function
 
 async function fetchAbortE9() {
-
+  ltc("Abort function started");
   try {
-    const theResponse = await sleepUsageExample;
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await theResponse.json();
-	  changeSection1Output(`Response text is: ${data}`);
+    ltc("Abort try block started");
+    controller.abort();
   } catch (error) {
-	changeSection1Output('Error occured:', error);
+    if (error.name === 'AbortError') {
+      console.log('Fetch successfully canceled!');
+  	  changeSection1Output('Error occured:', error);
+    } else {
+      console.log(`A different error occured: ${error}`);
+    }
     console.error('Error encountered:', error);
   }
 }
