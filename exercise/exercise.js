@@ -334,30 +334,42 @@ the return of your fetch call in time for you to abort it
 
 // Exercise 9
 
-const exercise9btn = document.getElementById("exercise-9-fetch-btn");
-exercise9btn.addEventListener("click", sleepUsageExample);
+// Fetch button DOM object & listener
+const exercise9btnFetch = document.getElementById("exercise-9-fetch-btn");
+const exercise9btnAbort = document.getElementById("exercise-9-abort-btn");
+exercise9btnFetch.addEventListener("click", sleepUsageExample);
+exercise9btnAbort.addEventListener("click", fetchAbortE9);
 
+// LC provided sleep function
 function sleep(ms) {
+  ltc("sleep function started");
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// LC prodivded and modified fetch function
 function sleepUsageExample() {
   sleep(5000).then(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts/1");
-  	changeSection1Output('Fetch complete');
-	  ltc("Fetch complete");
-  });
-}
+    ltc("fetch function started");
+    fetch("https://jsonplaceholder.typicode.com/posts/1")
+      .then(response => response.json())
+    	.then(data => { 
+        changeSection1Output(JSON.stringify(data));
+    	  ltc("fetch function complete");
+        return data;
+      });
+    });
+  };
 
 
+// Is this the abort function or what calls the main one
 async function fetchAbortE9() {
   try {
-    const response = await sleepUsageExample;
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-	changeSection1Output('Response text is:', data);
+    const theResponse = await sleepUsageExample;
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! Status: ${response.status}`);
+    // }
+    const data = await theResponse.json();
+	  changeSection1Output(`Response text is: ${data}`);
   } catch (error) {
 	changeSection1Output('Error occured:', error);
     console.error('Error encountered:', error);
