@@ -376,9 +376,13 @@ async function fetchAbortE9() {
     } else {
       console.log(`A different error occured: ${error}`);
     }
-    console.error('Error encountered:', error);
+    console.error(`Error encountered: ${error}`);
+  } finally {
+    if (controller?.signal === signal) {
+    controller = null;
   }
 }
+} 
 //exercise9btn.addEventListener("click", fetchAbortE9);
 
 /*
