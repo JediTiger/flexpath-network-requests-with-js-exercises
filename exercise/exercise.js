@@ -346,23 +346,26 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// LC prodivded and modified fetch function
+const controller = new AbortController();
+const signal = controller.signal;
+
+// LC prodivded but modified fetch function
 function sleepUsageExample() {
-  sleep(5000).then(() => {
-    ltc("fetch function started");
-    fetch("https://jsonplaceholder.typicode.com/posts/1")
+  sleep(50).then(() => {
+    ltc("fetch in sleep function started");
+    fetch("https://jsonplaceholder.typicode.com/posts/1", { signal })
       .then(response => response.json())
     	.then(data => { 
         changeSection1Output(JSON.stringify(data));
     	  ltc("fetch function complete");
-        return data;
       });
     });
   };
 
+// Was testing this to call the other functions; now it is the abort function
 
-// Is this the abort function or what calls the main one
 async function fetchAbortE9() {
+
   try {
     const theResponse = await sleepUsageExample;
     if (!response.ok) {
