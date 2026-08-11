@@ -370,6 +370,7 @@ async function fetchAbortE9() {
     ltc("Abort try block started");
     controller.abort();
   } catch (error) {
+    ltc("Catch block started");
     if (error.name === 'AbortError') {
       console.log('Fetch successfully canceled!');
   	  changeSection1Output('Error occured:', error);
@@ -378,6 +379,7 @@ async function fetchAbortE9() {
     }
     console.error(`Error encountered: ${error}`);
   } finally {
+    ltc("Finally block started");
     if (controller?.signal === signal) {
     controller = null;
   }
