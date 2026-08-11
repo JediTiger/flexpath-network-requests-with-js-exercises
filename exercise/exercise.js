@@ -365,9 +365,9 @@ function sleepUsageExample() {
 async function fetchAbortE9() {
   try {
     const theResponse = await sleepUsageExample;
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! Status: ${response.status}`);
-    // }
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
     const data = await theResponse.json();
 	  changeSection1Output(`Response text is: ${data}`);
   } catch (error) {
