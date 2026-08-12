@@ -346,7 +346,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const controller = new AbortController();
+let controller = new AbortController();
 const signal = controller.signal;
 
 // LC prodivded but modified fetch function
