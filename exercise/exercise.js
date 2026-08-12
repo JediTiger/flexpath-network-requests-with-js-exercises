@@ -132,6 +132,12 @@ function changeSection1Output(prefix, statusOutput = '') {
 	}
 	section1OutputDiv.textContent = `${prefix} ${statusOutput}`;
 }
+function changeSection2Output(prefix, statusOutput = '') {
+	if (typeof statusOutput === 'object') {
+		statusOutput = JSON.stringify(statusOutput);
+	}
+	section2OutputDiv.textContent = `${prefix} ${statusOutput}`;
+}
 
 async function getStatusCodesE4() {
 const divPrefixE4 = "Status code is:";
@@ -397,27 +403,13 @@ const corsWorkUrl = "https://fsn1-speed.hetzner.com/100MB.bin";
 const exercise10btn = document.getElementById("exercise-10-btn");
 
 async function tryCORSRequestE10() {
-    const response = await fetch(corsWorkUrl)
-      .then(response => response.json())
-    	.then(data => { 
-        changeSection2Output(JSON.stringify(data));
-    	  ltc("fetch block complete");
-      })
-      .catch(error => { 
-          console.error(`An error occured: ${error}`)
-      });
-	ltc(response);
-	thrownError = response;
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.text();
-	changeSection1Output('Response text is:', data);
-  } catch (error) {
-	changeSection1Output('Error occured:', 'Invalid URL; Host URL could not be found.');
-    console.error('Error encountered:', error);
+  await fetch(corsWorkUrl)
+    .then(response => response.json())
+    .catch(error => {
+      console.error(`An error occured: ${error}`)
+      changeSection2Output(`CORS error encountered: ${error}`);
+    });
   }
-}
 exercise10btn.addEventListener("click", tryCORSRequestE10);
 
 /*
@@ -433,11 +425,17 @@ changes in the response.
 */
 
 // Exercise 11 - Use the corsWorkUrl provided in Exercise 10
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+const exercise11btn = document.getElementById("exercise-11-btn");
+exercise11btn.addEventListener("click", tryCORSRequestE10);
+async function tryCORSRequestE11() {
+  await fetch(corsWorkUrl)
+    .then(response => response.json())
+    .catch(error => {
+      console.error(`An error occured: ${error}`)
+      changeSection2Output(`CORS error encountered: ${error}`);
+    });
+  }
+exercise11btn.addEventListener("click", tryCORSRequestE11);
 
 /*
 Exercise 12: Handling Preflight Requests
