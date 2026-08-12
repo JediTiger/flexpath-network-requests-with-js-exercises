@@ -358,6 +358,14 @@ function sleepUsageExample() {
     	.then(data => { 
         changeSection1Output(JSON.stringify(data));
     	  ltc("fetch function complete");
+      })
+      .catch(error => { 
+        if(error.name === 'AbortError') {
+          ltc('Fetch successfully canceled!');
+          changeSection1Output('Fetch aborted');
+        } else {
+          console.error(`An error occured: ${error}`)
+        }
       });
     });
   };
@@ -366,24 +374,9 @@ function sleepUsageExample() {
 
 async function fetchAbortE9() {
   ltc("Abort function started");
-  try {
-    ltc("Abort try block started");
+  if(controller) {
     controller.abort();
-  } catch (error) {
-    ltc("Catch block started");
-    if (error.name === 'AbortError') {
-      console.log('Fetch successfully canceled!');
-  	  changeSection1Output('Error occured:', error);
-    } else {
-      console.log(`A different error occured: ${error}`);
     }
-    console.error(`Error encountered: ${error}`);
-  } finally {
-    ltc("Finally block started");
-    if (controller?.signal === signal) {
-    controller = null;
-  }
-}
 } 
 //exercise9btn.addEventListener("click", fetchAbortE9);
 
