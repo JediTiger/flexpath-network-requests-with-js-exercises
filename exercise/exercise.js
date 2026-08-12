@@ -394,12 +394,31 @@ when the #exercise-10-btn is clicked. Observe and log the CORS error out to
 // Exercise 10 - Use the url below
 
 const corsWorkUrl = "https://fsn1-speed.hetzner.com/100MB.bin";
+const exercise10btn = document.getElementById("exercise-10-btn");
 
-placeholder = `Delete this 
-									block 
-									and 
-									code 
-									here`;
+async function tryCORSRequestE10() {
+    const response = await fetch(corsWorkUrl)
+      .then(response => response.json())
+    	.then(data => { 
+        changeSection2Output(JSON.stringify(data));
+    	  ltc("fetch block complete");
+      })
+      .catch(error => { 
+          console.error(`An error occured: ${error}`)
+      });
+	ltc(response);
+	thrownError = response;
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.text();
+	changeSection1Output('Response text is:', data);
+  } catch (error) {
+	changeSection1Output('Error occured:', 'Invalid URL; Host URL could not be found.');
+    console.error('Error encountered:', error);
+  }
+}
+exercise10btn.addEventListener("click", tryCORSRequestE10);
 
 /*
 Exercise 11: Configuring a CORS Request
